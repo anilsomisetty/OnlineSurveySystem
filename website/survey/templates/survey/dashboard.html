@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <h1>Dashboard <small> Welcome {{session.username}}</small></h1>
+    <h1>Dashboard <small> Welcome {{user.username}}</small></h1>
     <a class="btn btn-success" href="/addquestion">Add Question</a>
     <hr>
     <table class="table table-striped">
@@ -16,15 +16,24 @@
             <th></th>
         </tr>
         {% for question in questions %}
+            {% if question.yid is sid|add:"0" %}
             <tr>
                 <td>{{question.questionid}}</td>
                 <td>{{question.question}}</td>
                 <td>{{question.option1}}</td>
-                <td>{{question.option1}}</td>
-                <td>{{question.option1}}</td>
-                <td>{{question.option1}}</td>
-                
+                <td>{{question.option2}}</td>
+                <td>{{question.option3}}</td>
+                <td>{{question.option4}}</td>
+                <td><a href="editquestion/{{question.questionid}}" class="btn btn-default pull-right">Edit</a></td>
+                <td>
+                        <form action="deletequestion/{{question.questionid}}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name ="method" value="DELETE">
+                            <input type="submit" value="Delete" class="btn btn-danger">
+                        </form>
+                    </td>    
             </tr>
+            {% endif %}
         {% endfor %}
     </table>
 {% endblock %}

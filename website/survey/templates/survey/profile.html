@@ -1,0 +1,25 @@
+{% block title %}profile{% endblock %}
+{% block body_block %}
+		 <p>User
+		 	{% if request.user.is_authenticated %}
+		 	{{ user }}
+		 	{% if user.first_name %}
+		 	{{ user.first_name }}
+		 	{% endif %}
+		 	{% if user.last_name %}
+		 	{{ user.last_name }}
+		 	{% endif %}
+		 	{% if user.email %}
+		 	{{ user.email }}
+		 	{% endif %}
+		 	{% endif %}
+		 </p>
+		  <form method="get" action="/editprofile">
+    			<button type="submit">Edit profile</button>
+  		  </form>
+  		  <form method="get" action="/updatepassword">
+    			<button type="submit">update password</button>
+  		  </form>
+
+			
+{% endblock %}		

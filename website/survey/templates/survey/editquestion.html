@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <h1>Edit Question</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p><input type="submit" class="btn btn-primary" value="submit"</p>
+     
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h1>Dashboard <small> Welcome {{session.username}}</small></h1>
+    <hr>
+    <table class="table table-striped">
+        <tr>
+            <th>Survey name</th>
+            <th>participate</th>
+            <th></th>
+            <th></th>
+        </tr>
+        {% for survey in surveys %}
+            {% if user.username != username %}
+            <tr>
+                <td>{{survey.surveyname}}</td>
+                
+                
+            </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+{% endblock %}
