@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h1>Dashboard <small> Welcome {{session.username}}</small></h1>
+    <a class="btn btn-success" href="/addquestion">Add Question</a>
+    <hr>
+    <table class="table table-striped">
+        <tr>
+            <th>Q.no</th>
+            <th>question</th>
+            <th>option1</th>
+            <th>option2</th>
+            <th>option3</th>
+            <th>option4</th>
+            <th></th>
+            <th></th>
+        </tr>
+        {% for question in questions %}
+            <tr>
+                <td>{{question.questionid}}</td>
+                <td>{{question.question}}</td>
+                <td>{{question.option1}}</td>
+                <td>{{question.option1}}</td>
+                <td>{{question.option1}}</td>
+                <td>{{question.option1}}</td>
+                
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
