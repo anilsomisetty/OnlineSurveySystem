@@ -15,7 +15,7 @@
             {% if user.username is username %}
             <tr>
                 <td>{{survey.surveyname}}</td>
-                
+                <td><a class="btn btn-success" href="/getresults/{{survey.id}}">Get</a></td>
                 
             </tr>
             {% endif %}

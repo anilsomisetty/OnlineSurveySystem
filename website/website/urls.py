@@ -19,5 +19,5 @@ urlpatterns = [
   url(r'^updatepassword/',survey_views.change_password, name='change_password'),
   url(r'^showsurveys/',survey_views.showsurveys, name='showsurveys'),
   url(r'^hissurveys/',survey_views.hissurveys, name='hissurveys'),
-
+  url(r'^getresults/(?P<sid>[0-9]+)$',survey_views.getresults,name='getresults'),
 ]

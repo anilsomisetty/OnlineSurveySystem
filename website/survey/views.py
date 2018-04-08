@@ -12,7 +12,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.contrib.auth.models import User
-
+from django.core.mail import EmailMessage
 
 sid=0
 questionnum=1
@@ -49,6 +49,9 @@ def surveys(request):
             # print sid
             iid.check=True
             iid.save()
+            # em=user.email
+            # email = EmailMessage('SurveyTool', 'You have sucesfully created a survey', to=[em])
+            # email.send()
             return redirect('/%d'%sid)
     else:
         form=SurveyForm
@@ -89,6 +92,9 @@ def deletequestion(request,sid,id):
         que=questions.objects.get(yid=sid,questionid=id)
         que.delete()
         sid=int(sid)
+        # em=user.email
+        # email = EmailMessage('SurveyTool', 'You have sucesfully deleted the question in your survey', to=[em])
+        # email.send()
         return redirect('/%d'%sid)
 def editquestion(request,sid,id):
     ques=questions.objects.get(yid=sid,questionid=id)
@@ -107,6 +113,9 @@ def editquestion(request,sid,id):
             ques.option3=option3
             ques.option4=option4
             ques.save()
+            # em=user.email
+            # email = EmailMessage('SurveyTool', 'You have sucesfully edited the question in your survey', to=[em])
+            # email.send()
             sid=int(sid)
         return redirect('/%d'%sid)
     else:
@@ -136,7 +145,9 @@ def update_profile(request):
             u.first_name=first_name
             u.last_name=last_name
             u.email=email
-            u.save()
+            u.save()            
+            # email1 = EmailMessage('SurveyTool', 'You have sucesfully updated your profile', to=[email])
+            # email1.send()
             #messages.success(request, _('Your profile was successfully updated!'))
             return redirect('/profile')
         else:
@@ -156,6 +167,9 @@ def change_password(request):
             user = form.save()
             update_session_auth_hash(request, user)  # Important!
             messages.success(request, 'Your password was successfully updated!')
+            # em=user.email
+            # email = EmailMessage('SurveyTool', 'You have sucesfully changed your password', to=[em])
+            # email.send()
             return redirect('change_password')
         else:
             messages.error(request, 'Please correct the error below.')
@@ -186,3 +200,10 @@ def hissurveys(request):
     else:
         msg='No surveys found'
         return render(request,'survey/hissurveys.html',{'msg':msg}) 
+
+def getresults(request,sid):
+    user=request.user
+    username=user.username
+    survey=questions.objects.filter(yid=sid)
+    return render(request,'survey/results.html',{'questions':survey,'username':username})
+
