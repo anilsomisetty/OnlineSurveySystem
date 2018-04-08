@@ -1,15 +1,13 @@
 <head>
     <meta charset="utf-8">
     <title>SurveyTool</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-        
-        <script type="text/javascript">
-            CKEDITOR.replace('editor')
-        </script>
+    <link rel="stylesheet" href="static/survey.css">
+    <div class="text-box">
+    <h1 id="title">Survey Form!</h1><hr>
+  </div>
 </head>
-
-<form method="post" novalidate>
+<div class="container">
+<form method="post" id="survey-form" novalidate>
   {% csrf_token %}
 
   {% if form.non_field_errors %}
@@ -31,11 +29,10 @@
     {{ hidden_field }}
   {% endfor %}
 
-  <table border="1">
     {% for field in form.visible_fields %}
-      <tr>
-        <th>{{ field.label_tag }}</th>
-        <td>
+
+        <div class="labels">
+        {{ field.label_tag }}
           {% if field.errors %}
             <ul>
               {% for error in field.errors %}
@@ -43,14 +40,16 @@
               {% endfor %}
             </ul>
           {% endif %}
+        </div>
+            <div class="input-tab" >
           {{ field }}
+            </div>
           {% if field.help_text %}
             <br />{{ field.help_text }}
           {% endif %}
-        </td>
-      </tr>
     {% endfor %}
-  </table>
-
-  <button type="submit">Submit</button>
+  <div class="btn">
+          <button id="submit" type="submit">Submit</button>
+        </div>
 </form>
+</div>

@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate
 
 class SurveyForm(forms.Form):
 	surveyname=forms.CharField(max_length=50)
-	surveymessage=forms.CharField(max_length=2000,widget=forms.Textarea(),help_text='Write your message here')
+	surveymessage=forms.CharField(max_length=2000,widget=forms.Textarea())
 	#numberofquestions=forms.IntegerField()
 	#super=forms.CharField(max_length=100,widget=forms.HiddenInput())
 
