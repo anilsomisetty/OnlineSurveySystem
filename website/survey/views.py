@@ -175,3 +175,14 @@ def showsurveys(request):
     else:
         msg='No surveys found'
         return render(request,'survey/show_surveys.html',{'msg':msg})   
+
+def hissurveys(request):
+    user=request.user
+    username=user.username
+    survey_num=Survey.objects.filter(userid=username).count()
+    survey=Survey.objects.all()
+    if survey_num > 0:
+        return render(request,'survey/hissurveys.html',{'surveys': survey,'username':username})
+    else:
+        msg='No surveys found'
+        return render(request,'survey/hissurveys.html',{'msg':msg}) 
