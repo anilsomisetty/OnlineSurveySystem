@@ -30,6 +30,10 @@ def signup(request):
         form = SignUpForm()
     return render(request, 'survey/signin.html', {'form': form})
 
+# def approverlogin(request):
+#     if request.method == 'POST':
+#         form=aproverForm
+
 def surveys(request):
     
     if request.method =='POST':

@@ -6,6 +6,13 @@ from django.contrib.auth.models import User
 
 class user(models.Model):
 	 user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+class approver(models.Model):
+	username=models.CharField(max_length=50,primary_key=True)
+	password=models.CharField(max_length=50)
+	# firstname=models.CharField(max_length=50)
+	# lastname=models.CharField(max_length=50)
+	email=models.CharField(max_length=50)
 class Survey(models.Model):
 	#surveyid=models.IntegerField(primary_key=True)
 	surveyname=models.CharField(max_length=50)
