@@ -2,9 +2,10 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from .models import Survey,questions
+from .models import *
 
 # Register your models here.
 
 admin.site.register(Survey)
 admin.site.register(questions)
+admin.site.register(approver)

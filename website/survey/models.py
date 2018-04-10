@@ -12,7 +12,7 @@ class approver(models.Model):
 	password=models.CharField(max_length=50)
 	# firstname=models.CharField(max_length=50)
 	# lastname=models.CharField(max_length=50)
-	email=models.CharField(max_length=50)
+	#email=models.CharField(max_length=50)
 class Survey(models.Model):
 	#surveyid=models.IntegerField(primary_key=True)
 	surveyname=models.CharField(max_length=50)
@@ -20,6 +20,9 @@ class Survey(models.Model):
 	#numberofquestions=models.IntegerField(default=0)
 	userid=models.CharField(max_length=100,default='admin')
 	check=models.BooleanField(default=True)
+	check1=models.BooleanField(default=False)
+	check2=models.BooleanField(default=False)
+	check3=models.BooleanField(default=True)
 	#userid=models.ForeignKey('user')
 
 class questions(models.Model):

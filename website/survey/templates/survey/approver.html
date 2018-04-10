@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h1>Dashboard <small> Welcome {{username}}</small></h1>
+    <hr>
+    <table class="table table-striped">
+        <tr>
+            <th>Survey name</th>
+            <th>Created by</th>
+            <th>approve</th>
+            <th>Reject</th>
+        </tr>
+        {% for survey in surveys %}
+            <tr>
+                <td>{{survey.surveyname}}</td>
+                <td>{{survey.userid}}</td>
+                {% if survey.check1 == False and survey.check3 == True %}
+                    <td><a class="btn btn-success" href="/approve/{{survey.id}}">Approve</a></td>
+                {% elif survey.check3 == False %}
+                <td>Rejected</td>
+                    {% else %}
+                    <td>Approved</td>
+                {% endif %}
+                {% if survey.check1 == False and survey.check3 is True %}
+                <td>
+                    <form action="/reject/{{survey.id}}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name ="method" value="DELETE">
+                        <input type="submit" value="Reject" class="btn btn-danger">
+                    </form>
+                </td>
+                {% elif survey.check3 is False %}
+                <td>Rejected</td>
+                {% else %}
+                <td>Already Approved</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

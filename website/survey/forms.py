@@ -52,3 +52,12 @@ class ProfileForm(forms.Form):
         first_name=cleaned_data.get('first_name')
         last_name=cleaned_data.get('last_name')
         email=cleaned_data.get('email')		
+
+class approverForm(forms.Form):
+	Username=forms.CharField(max_length=200)
+	password=forms.CharField(max_length=200)
+
+	def clean(self):
+		cleaned_data=super(approverForm,self).clean()
+		Username=cleaned_data.get('Username')
+		password=cleaned_data.get('password')

@@ -20,4 +20,10 @@ urlpatterns = [
   url(r'^showsurveys/',survey_views.showsurveys, name='showsurveys'),
   url(r'^hissurveys/',survey_views.hissurveys, name='hissurveys'),
   url(r'^getresults/(?P<sid>[0-9]+)$',survey_views.getresults,name='getresults'),
+  url(r'^approverlogin/$',survey_views.approverlogin,name='approver'),
+  url(r'^approve/(?P<sid>[0-9]+)$',survey_views.approve,name='approve'),
+  url(r'^deletesurvey/(?P<sid>[0-9]+)$',survey_views.deletesurvey,name='deletesurvey'),
+  url(r'^cancelsurvey/(?P<sid>[0-9]+)$',survey_views.cancelsurvey,name='cancelsurvey'),
+  url(r'^reject/(?P<sid>[0-9]+)$',survey_views.rejectsurvey,name='rejectsurvey'),
+  url(r'^correct/',survey_views.correct, name='correct'),
 ]

@@ -1,0 +1,7 @@
+{% block content %}
+    <h1>Login is sucessful</h1>
+    <form method="post">
+            {% csrf_token %}
+        <button type="submit">Approve Surveys</button>
+    </form>
+{% endblock %}

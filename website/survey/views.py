@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.contrib.auth import login, authenticate
-from survey.models import Survey,questions
+from survey.models import Survey,questions,approver
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import loader,render,redirect
 from .forms import *
@@ -13,6 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
+from django import forms
 
 sid=0
 questionnum=1
@@ -30,10 +31,46 @@ def signup(request):
         form = SignUpForm()
     return render(request, 'survey/signin.html', {'form': form})
 
-# def approverlogin(request):
-#     if request.method == 'POST':
-#         form=aproverForm
+def approverlogin(request):
+    if request.method == 'POST':
+        form=approverForm(request.POST)
+        if form.is_valid():
+            username=form.cleaned_data.get('Username')
+            password=form.cleaned_data.get('password')
+            chec=approver.objects.filter(username=username,password=password).count()
+            survey=Survey.objects.all()
+            if chec > 0 :
+                return redirect('/correct') 
+            else:
+                return render(request,'survey/wrong.html')
+    else:
+        form=approverForm
+        return render(request,'survey/approverlogin.html',{'form':form})
 
+def correct(request):
+    if request.method == 'POST': 
+        form=approverForm(request.POST)
+        survey=Survey.objects.all()
+        return render(request,'survey/approver.html',{'surveys': survey})
+    else:
+        return render(request,'survey/correct.html')    
+def approve(request,sid):
+    user=request.user
+    username=user.username
+    surveys=Survey.objects.get(id=sid)
+    surveys.check1='True'
+    surveys.save()
+    survey=Survey.objects.all()
+    return redirect('/correct')
+
+def rejectsurvey(request,sid):
+    user=request.user
+    username=user.username
+    survey=Survey.objects.get(id=sid)
+    survey.check3=False
+    survey.save()
+    survey=Survey.objects.all()
+    return render(request,'survey/approver.html',{'surveys': survey,'username':username})
 def surveys(request):
     
     if request.method =='POST':
@@ -100,6 +137,13 @@ def deletequestion(request,sid,id):
         # email = EmailMessage('SurveyTool', 'You have sucesfully deleted the question in your survey', to=[em])
         # email.send()
         return redirect('/%d'%sid)
+
+def deletesurvey(request,sid):
+    if request.method=='POST' and request.user.is_authenticated():
+        survey=Survey.objects.get(id=sid)
+        survey.delete()
+        return redirect('/hissurveys')
+
 def editquestion(request,sid,id):
     ques=questions.objects.get(yid=sid,questionid=id)
     if request.method=="POST":
@@ -199,7 +243,7 @@ def hissurveys(request):
     username=user.username
     survey_num=Survey.objects.filter(userid=username).count()
     survey=Survey.objects.all()
-    if survey_num > 0:
+    if survey_num > 0 and request.user.is_authenticated() :
         return render(request,'survey/hissurveys.html',{'surveys': survey,'username':username})
     else:
         msg='No surveys found'
@@ -210,4 +254,13 @@ def getresults(request,sid):
     username=user.username
     survey=questions.objects.filter(yid=sid)
     return render(request,'survey/results.html',{'questions':survey,'username':username})
+
+def cancelsurvey(request,sid):
+    survey=Survey.objects.get(id=sid)
+    if survey.check2 :
+        survey.delete()
+    else :
+        survey.check2=True
+        survey.delete()
+    return redirect('/hissurveys')
 

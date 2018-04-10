@@ -8,14 +8,48 @@
         <tr>
             <th>Survey name</th>
             <th>Results</th>
-            
+            <th>Approve Status</th>
+            <th>Cancel Survey</th>
+            <th>Withdraw Survey</th>
         </tr>
         {% for survey in surveys %}
-            {% if user.username is username %}
+            {% if survey.userid == username %}
             <tr>
                 <td>{{survey.surveyname}}</td>
+                {% if survey.check1 is True and survey.check is True %}
                 <td><a class="btn btn-success" href="/getresults/{{survey.id}}">Get</a></td>
-                
+                {% elif survey.check3 is False %}
+                <td>Rejected</td>
+                {% else %}
+                <td>Not yet approved</td>
+                {% endif %}
+                {% if survey.check1 is True and survey.check3 is True%}
+                <td>Approved</td>
+                {% elif survey.check3 is False %}
+                <td>Rejected</td>
+                {% else %}
+                <td>Not yet Approved</td>
+                {% endif %}
+                {% if survey.check1 is True and survey.check3 is True%}
+                <td><a href="/cancelsurvey/{{survey.id}}" class="btn btn-default pull-right">Cancel Survey</a></td>
+                {% elif survey.check3 is False %}
+                <td>Rejected</td>
+                {% else %}
+                <td>Can't cancel Still not approved</td>
+                {% endif %}
+                {% if survey.check1 is False and survey.check3 is True %}
+                <td>
+                    <form action="/deletesurvey/{{survey.id}}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name ="method" value="DELETE">
+                        <input type="submit" value="Withdraw" class="btn btn-danger">
+                    </form>
+                </td>
+                {% elif survey.check3 is False %}
+                <td>Rejected</td>
+                {% else %}
+                <td>Approved</td>
+                {% endif %}
             </tr>
             {% endif %}
         {% endfor %}
