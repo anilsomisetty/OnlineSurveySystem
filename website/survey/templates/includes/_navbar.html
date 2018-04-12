@@ -1,36 +1,24 @@
-<nav class="navbar navbar-header">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="/">SurveyTool</a>
-          </div>
-          <!-- <ul class="nav navbar-nav">
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/articles">Articles</a></li>
-          </ul> -->
-          <ul class="nav navbar-right">
-            <li><a href="/">Home</a></li>
-          </ul>
-          <ul class="nav navbar-right">
-            <li><a href="/about">About</a></li>
-          </ul>
-          <ul class="nav navbar-right">
-            <li><a href="/hissurveys">My Surveys</a></li>
-          </ul>
-          {% if user.is_authenticated %}
-            <ul class="nav navbar-right">
-              <li><a href="/showsurveys">Participate in Survey</a></li>
-            </ul>
-            <ul class="nav navbar-right">
-              <li><a href="/logout">Logout</a></li>
-            </ul>
-          {% else %}
-            <ul class="nav navbar-right">
-              <li><a href="/login">Login</a></li>
-            </ul>
-            <ul class="nav navbar-right">
-              <li><a href="/signup">Register</a></li>
-            </ul>
-          {% endif %}
-        </div>
-      </nav>
+<link rel="stylesheet" href="/static/_navbar.css">
+<nav>
+
+  <ul>
+<li>
+      <a class="navbar-brand" href="/">SurveyTool</a>
+</li>
+    <li>
+      <a href="/">HOME</a>
+    </li>
+    <li>
+      <a href="/about">ABOUT</a>
+    </li>
+    <li>
+      <a href="/showsurveys">SURVEYS</a>
+    </li>
+    <li>
+      <a href="/dashboard">DASHBOARD</a>
+    </li>
+      <li>
+      <a href="/logout">LOGOUT</a>
+    </li>
+  </ul>
+</nav>

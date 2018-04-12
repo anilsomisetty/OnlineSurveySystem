@@ -29,7 +29,7 @@ def signup(request):
             return redirect('/login')
     else:
         form = SignUpForm()
-    return render(request, 'survey/signin.html', {'form': form})
+    return render(request, 'survey/signup.html', {'form': form})
 
 def approverlogin(request):
     if request.method == 'POST':

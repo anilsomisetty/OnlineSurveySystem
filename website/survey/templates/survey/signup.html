@@ -1,0 +1,53 @@
+<link rel="stylesheet" href="/static/signup.css">
+<script src="/static/signup.js"></script>
+<script src="/static/jquery.min.js"></script>
+<script src="/static/bootstrap.min.js"></script>
+<script src="/static/jquery.easing.min.js"></script>
+
+<div class="wrapper">
+	<div class="container">
+		<h1>Register</h1>
+		<form method="post" class="form">
+			{% csrf_token %}
+             {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+
+      </p>
+    {% endfor %}
+        <button type="submit">signup</button>
+         <style>
+                label {
+                    display: none;
+                }
+            </style>
+        <script>
+          $('#id_username').attr('placeholder', 'Username');
+          $('#id_first_name').attr('placeholder','First Name');
+          $('#id_last_name').attr('placeholder','Second Name');
+          $('#id_email').attr('placeholder','Email');
+          $('#id_password1').attr('placeholder','Password');
+           $('#id_password2').attr('placeholder','Password Confirmation');
+      </script>
+		</form>
+	</div>
+
+	<ul class="bg-bubbles">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+</div>
+

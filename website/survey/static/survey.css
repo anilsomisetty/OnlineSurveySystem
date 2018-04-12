@@ -57,11 +57,11 @@ hr {
   margin: auto;
   width: 90%;
   padding: 1em;
-  
+
 }
 
 #survey-form {
-  margin: 0 center;
+  margin: 0 auto;
   width: 80%;
   padding: 10px;
 }
@@ -77,12 +77,11 @@ hr {
 .input-tab {
   display: inline-block;
   text-align: left;
-  width: 55%;
+  width: 50%;
   margin-left: 10px;
 }
 
 .input-field {
-  position: inherit;
   display: inline-block;
   width: 100%;
   padding: 5px;
@@ -100,13 +99,13 @@ hr {
 }
 
 input {
-  margin: 10px;
+  margin: 7px;
 }
 
 #dropdown {
   width: 100%;
   padding: 5px;
-  margin: 20px 0 10px 10px;  
+  margin: 20px 0 10px 10px;
   border: 1px solid #e67e22;
   border-radius: 3px;
   font-family: inherit;
@@ -160,11 +159,11 @@ footer p {
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(https://wallpapercave.com/wp/Fdh76FQ.jpg) center no-repeat fixed;
   background-size: cover;
 }
-  
+
   h1 {
     font-size: 2em;
   }
-  
+
   .labels {
     width: 100%;
     text-align: left;
