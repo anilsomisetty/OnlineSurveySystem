@@ -22,8 +22,16 @@
                 <td>{{question.question}}</td>
                 <td>{{question.option1}}</td>
                 <td>{{question.option2}}</td>
+                {% if not question.option3 %}
+                <td>Not Given</td>
+                {% else %}
                 <td>{{question.option3}}</td>
+                {% endif %}
+                {% if not question.option4 %}
+                <td>Not Given</td>
+                {% else %}
                 <td>{{question.option4}}</td>
+                {% endif %}
                 <td><a href="editquestion/{{question.questionid}}" class="btn btn-default pull-right">Edit</a></td>
                 <td>
                         <form action="deletequestion/{{question.questionid}}" method="post">

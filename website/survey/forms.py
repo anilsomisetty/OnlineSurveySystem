@@ -21,8 +21,8 @@ class questionForm(forms.Form):
 	question=forms.CharField(max_length=200)
 	option1=forms.CharField(max_length=100)
 	option2=forms.CharField(max_length=100)
-	option3=forms.CharField(max_length=100)
-	option4=forms.CharField(max_length=100)
+	option3=forms.CharField(max_length=100,required=False)
+	option4=forms.CharField(max_length=100,required=False)
 	#choice=['option1','option2','option3','option4']
 	#like=forms.ChoiceField(choices=choice,widget=forms.RadioSelect())
 	def clean(self):
@@ -55,7 +55,7 @@ class ProfileForm(forms.Form):
 
 class approverForm(forms.Form):
 	Username=forms.CharField(max_length=200)
-	password=forms.CharField(max_length=200)
+	password=forms.CharField(max_length=200,widget=forms.PasswordInput)
 
 	def clean(self):
 		cleaned_data=super(approverForm,self).clean()

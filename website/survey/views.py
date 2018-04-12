@@ -16,7 +16,7 @@ from django.core.mail import EmailMessage
 from django import forms
 
 sid=0
-questionnum=1
+questionnum=0
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -124,7 +124,7 @@ def addquestion(request):
             question=questions.objects.create(questionid=questionnum,question=question,option1=option1,option2=option2,option3=option3,option4=option4,yid=sid)
             question.save()
             questionnum=questionnum+1
-            # print sid
+            #print option3
         return redirect('/%d'%sid)
     else:
         return render(request,'survey/addquestion.html',{'form' : form})
