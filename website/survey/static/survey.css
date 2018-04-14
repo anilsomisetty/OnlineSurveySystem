@@ -78,9 +78,9 @@ hr {
   display: inline-block;
   text-align: left;
   width: 50%;
-  margin-left: 10px;
+  vertical-align: top;
+  margin-top: 15px;
 }
-
 .input-field {
   display: inline-block;
   width: 100%;

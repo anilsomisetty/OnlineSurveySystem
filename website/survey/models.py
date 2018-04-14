@@ -17,6 +17,7 @@ class Survey(models.Model):
 	#surveyid=models.IntegerField(primary_key=True)
 	surveyname=models.CharField(max_length=50)
 	surveymessage=models.TextField(max_length=2000,default='New Survey')
+	numberofdays=models.IntegerField(default=0)
 	#numberofquestions=models.IntegerField(default=0)
 	userid=models.CharField(max_length=100,default='admin')
 	check=models.BooleanField(default=True)

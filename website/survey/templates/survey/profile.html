@@ -1,25 +1,70 @@
-{% block title %}profile{% endblock %}
-{% block body_block %}
-		 <p>User
-		 	{% if request.user.is_authenticated %}
-		 	{{ user }}
-		 	{% if user.first_name %}
-		 	{{ user.first_name }}
-		 	{% endif %}
-		 	{% if user.last_name %}
-		 	{{ user.last_name }}
-		 	{% endif %}
-		 	{% if user.email %}
-		 	{{ user.email }}
-		 	{% endif %}
-		 	{% endif %}
-		 </p>
-		  <form method="get" action="/editprofile">
-    			<button type="submit">Edit profile</button>
-  		  </form>
-  		  <form method="get" action="/updatepassword">
-    			<button type="submit">update password</button>
-  		  </form>
+<link rel="stylesheet" href="/static/pro.css">
 
-			
-{% endblock %}		
+
+<main>
+  <section class="user_profile">
+      <div class="container tabs-area">
+          <div class="tab">
+        <div class="row title">
+          <div class="one-half column">
+            <h5>Profile</h5>
+          </div>
+            <div class="one-half column r-align">
+           <a href="/hissurveys" class="button button-upgrade">Create Survey</a>
+        </div>
+        </div>
+        <div class="row">
+          <div class="two-thirds column">
+            <form>
+              <div class="row">
+                <div class="one-half column">
+                  <label for="username">UserName</label>
+                  <input class="u-full-width" readonly type="text" value=": {{ user }}" id="username">
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="one-half column">
+                  <label for="firstname">FirstName</label>
+                  <input class="u-full-width" readonly type="text" value=": {{ user.first_name }}" id="firstname">
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="one-half column">
+                  <label for="lastname">LastName</label>
+                  <input class="u-full-width" readonly type="text" value=": {{ user.last_name }}" id="lastname">
+                </div>
+
+              </div>
+
+                <div class="row">
+                <div class="one-half column ">
+                  <label for="email">Email</label>
+                  <input class=""  readonly type="email" value=": {{ user.email}}" id="email">
+                </div>
+
+              </div>
+            </form>
+          </div>
+
+          <div class="one-third column complete">
+            <a href="/editprofile" class="button-edit">Edit Profile</a>
+          </div>
+            <div class="one-third column complete">
+                  <h1>   </h1>
+          </div>
+            <div class="one-third column complete">
+                  <h1>   </h1>
+          </div>
+            <div class="one-third column complete">
+                  <h1>   </h1>
+          </div>
+            <div class="one-third column complete">
+            <a href="/updatepassword" class="button-edit">Change Password</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

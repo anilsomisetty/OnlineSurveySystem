@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate
 class SurveyForm(forms.Form):
 	surveyname=forms.CharField(max_length=50)
 	surveymessage=forms.CharField(max_length=2000,widget=forms.Textarea())
+	numberofdays=forms.IntegerField()
 	#numberofquestions=forms.IntegerField()
 	#super=forms.CharField(max_length=100,widget=forms.HiddenInput())
 
@@ -14,7 +15,8 @@ class SurveyForm(forms.Form):
 		cleaned_data=super(SurveyForm,self).clean()
 		surveyname=cleaned_data.get('surveyname')
 		surveymessage=cleaned_data.get('surveymessage')
-		if not surveyname and not surveymessage:
+		numberofdays=cleaned_data.get('numberofdays')
+		if not surveyname and not surveymessage and not numberofdays:
 			raise forms.ValidationError('You have to write something')
 class questionForm(forms.Form):
 	#questionid=forms.IntegerField()
@@ -61,13 +63,11 @@ class approverForm(forms.Form):
 		cleaned_data=super(approverForm,self).clean()
 		Username=cleaned_data.get('Username')
 		password=cleaned_data.get('password')
+class ForgotpasswordForm(forms.Form):
+	username=forms.CharField(max_length=100)
+	email=forms.EmailField(max_length=100)
 
-# class participateForm(forms.Forms):
-# 	questionnum=forms.IntegerField()
-# 	question=forms.BooleanField
-# 	option1=forms.BooleanField
-# 	option2=forms.BooleanField
-# 	option3=forms.BooleanField
-# 	option4=forms.BooleanField
-# 	choice=['option1','option2','option3','option4']
-# 	like=forms.ChoiceField(choices=choice,widget=forms.RadioSelect())
+	def clean(self):
+		cleaned_data=super(ForgotpasswordForm,self).clean()
+		Username=cleaned_data.get('Username')
+		email=cleaned_data.get('email')

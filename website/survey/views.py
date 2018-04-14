@@ -19,6 +19,9 @@ from django.contrib import messages
 
 sid=0
 questionnum=0
+def home(request):
+    return render(request,'survey/home.html')
+
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -228,7 +231,20 @@ def change_password(request):
     return render(request, 'survey/update_password.html', {
         'form': form
     }) 
-
+def forgotpassword(request):
+    if request.method == 'POST':
+        form=ForgotpasswordForm(request.POST)
+        if form.is_valid():
+            username=form.cleaned_data['username']
+            email=form.cleaned_data['email']
+            user_num=User.objects.filter(username=username,email=email).count()
+            if user_num > 0 :
+                return render(request,'survey/changepasswordsuccess.html')
+            else :
+                return render(request,'survey/changepaswordunsuccess.html')
+    else:
+        form=ForgotpasswordForm
+        return render(request,'survey/forgotpassword.html',{'form': form})
 def showsurveys(request):
     user=request.user
     username=user.username
