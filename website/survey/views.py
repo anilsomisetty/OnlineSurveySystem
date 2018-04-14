@@ -14,6 +14,7 @@ from django.db import transaction
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 from django import forms
+from django.db.models import Q
 
 sid=0
 questionnum=0
@@ -61,7 +62,7 @@ def approve(request,sid):
     surveys.check1='True'
     surveys.save()
     survey=Survey.objects.all()
-    return redirect('/correct')
+    return render(request,'survey/approver.html',{'surveys': survey})
 
 def rejectsurvey(request,sid):
     user=request.user
@@ -230,7 +231,8 @@ def change_password(request):
 def showsurveys(request):
     user=request.user
     username=user.username
-    survey_num=Survey.objects.filter(userid=username).count()
+    survey_num=Survey.objects.filter(~Q(userid=username)).count()
+    print survey_num
     survey=Survey.objects.all()
     if survey_num > 0:
         return render(request,'survey/show_surveys.html',{'surveys': survey,'username':username})

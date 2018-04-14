@@ -32,7 +32,7 @@
                 {% else %}
                 <td>{{question.option4}}</td>
                 {% endif %}
-                <td><a href="editquestion/{{question.questionid}}" class="btn btn-default pull-right">Edit</a></td>
+                <td><a href="editquestion/{{question.questionid}}" class="btn btn-success">Edit</a></td>
                 <td>
                         <form action="deletequestion/{{question.questionid}}" method="post">
                             {% csrf_token %}

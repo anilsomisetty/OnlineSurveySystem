@@ -7,6 +7,7 @@
     <table class="table table-striped">
         <tr>
             <th>Survey name</th>
+            <th>Edit Survey Questions</th>
             <th>Results</th>
             <th>Approve Status</th>
             <th>Cancel Survey</th>
@@ -16,6 +17,13 @@
             {% if survey.userid == username %}
             <tr>
                 <td>{{survey.surveyname}}</td>
+                {% if survey.check1 is True and survey.check is True %}
+                <td>Can't Change Already Launched</td>
+                {% elif survey.check3 is False %}
+                <td>Rejected</td>
+                {% else %}
+                <td><a class="btn btn-success" href="/{{survey.id}}">Edit Question</a></td>
+                {% endif %}
                 {% if survey.check1 is True and survey.check is True %}
                 <td><a class="btn btn-success" href="/getresults/{{survey.id}}">Get</a></td>
                 {% elif survey.check3 is False %}
@@ -31,7 +39,7 @@
                 <td>Not yet Approved</td>
                 {% endif %}
                 {% if survey.check1 is True and survey.check3 is True%}
-                <td><a href="/cancelsurvey/{{survey.id}}" class="btn btn-default pull-right">Cancel Survey</a></td>
+                <td><a href="/cancelsurvey/{{survey.id}}" class="btn btn-danger">Cancel Survey</a></td>
                 {% elif survey.check3 is False %}
                 <td>Rejected</td>
                 {% else %}
