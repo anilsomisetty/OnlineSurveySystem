@@ -2,20 +2,21 @@
 
 {% block body %}
     <h1>Results <small> Welcome {{user.username}}</small></h1>
-    <a class="btn btn-success" href="/hissurveys">Ok Go back</a>
+    <a class="btn btn-success" href="/hissurveys">Ok!.. Go back</a>
     <hr>
     <table class="table table-striped">
         <tr>
             <th>Q.no</th>
             <th>question</th>
             <th>option1</th>
-            <th>Voted by persons</th>
+            <th>Voted persons</th>
             <th>option2</th>
-            <th>Voted by persons</th>
+            <th>Voted persons</th>
             <th>option3</th>
-            <th>Voted by persons</th>
+            <th>Voted persons</th>
             <th>option4</th>
-            <th>Voted by persons</th>
+            <th>Voted persons</th>
+        
         </tr>
         {% for question in questions %}
             {% if user.username is username %}
@@ -26,10 +27,20 @@
                 <td>{{question.count1}}</td>
                 <td>{{question.option2}}</td>
                 <td>{{question.count2}}</td>
+                {% if question.option3 %}
                 <td>{{question.option3}}</td>
                 <td>{{question.count3}}</td>
+                {% else %}
+                <td>No option given</td>
+                <td>Noone</td>
+                {% endif %}
+                {% if question.option4 %}
                 <td>{{question.option4}}</td>
                 <td>{{question.count4}}</td>
+                {% else %}
+                <td>No option given</td>
+                <td>Noone</td>
+                {% endif %}
             </tr>
             {% endif %}
         {% endfor %}

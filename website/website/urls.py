@@ -26,4 +26,5 @@ urlpatterns = [
   url(r'^cancelsurvey/(?P<sid>[0-9]+)$',survey_views.cancelsurvey,name='cancelsurvey'),
   url(r'^reject/(?P<sid>[0-9]+)$',survey_views.rejectsurvey,name='rejectsurvey'),
   url(r'^correct/',survey_views.correct, name='correct'),
+  url(r'^participate/(?P<sid>[0-9]+)$',survey_views.participate, name='participate'),
 ]

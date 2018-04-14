@@ -9,9 +9,10 @@
             <th>participate</th>
         </tr>
         {% for survey in surveys %}
-            {% if survey.username != username and survey.check1 is True and survey.check3 is True %}
+            {% if survey.userid != username and survey.check1 is True and survey.check3 is True %}
             <tr>
                 <td>{{survey.surveyname}}</td>
+                <td><a class="btn btn-success" href="/participate/{{survey.id}}">Participate</a></td>
             </tr>
             {% endif %}
         {% endfor %}

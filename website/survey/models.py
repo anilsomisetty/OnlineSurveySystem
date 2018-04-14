@@ -37,5 +37,6 @@ class questions(models.Model):
 	count3=models.IntegerField(default=0)
 	count4=models.IntegerField(default=0)
 	yid=models.IntegerField(default=0)
+	#choice=['option1','option2','option3','option4']
 	#numberofquestions=models.IntegerField(default=0)
 

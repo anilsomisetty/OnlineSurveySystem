@@ -15,6 +15,7 @@ from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 from django import forms
 from django.db.models import Q
+from django.contrib import messages
 
 sid=0
 questionnum=0
@@ -219,9 +220,9 @@ def change_password(request):
             # em=user.email
             # email = EmailMessage('SurveyTool', 'You have sucesfully changed your password', to=[em])
             # email.send()
-            return redirect('change_password')
+            return redirect('/profile')
         else:
-            messages.error(request, 'Please correct the error below.')
+            messages.error(request,('Please correct the error below.'))
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'survey/update_password.html', {
@@ -232,7 +233,7 @@ def showsurveys(request):
     user=request.user
     username=user.username
     survey_num=Survey.objects.filter(~Q(userid=username)).count()
-    print survey_num
+    #print survey_num
     survey=Survey.objects.all()
     if survey_num > 0:
         return render(request,'survey/show_surveys.html',{'surveys': survey,'username':username})
@@ -265,4 +266,33 @@ def cancelsurvey(request,sid):
         survey.check2=True
         survey.delete()
     return redirect('/hissurveys')
+
+def participate(request,sid):
+    if request.method == 'POST':
+        ques=questions.objects.filter(yid=sid)
+        for q in ques :
+            ii=str(q.questionid)
+            option=request.POST[ii]
+            # print option
+            if option == 'op1':
+                q.count1=q.count1+1
+                q.save()
+            elif option == 'op2':
+                q.count2=q.count2+1
+                q.save()
+            elif option == 'op3':
+                q.count3=q.count3+1
+                q.save()
+            elif option == 'op4':
+                q.count4=q.count4+1
+                q.save()
+
+       #print 1
+        return HttpResponse('123')
+    else :      
+        survey=Survey.objects.get(id=sid)
+        #surveyname=survey.surveyname
+        ques=questions.objects.filter(yid=sid)
+        return render(request,'survey/participate.html',{'questions':ques,'survey':survey})
+
 

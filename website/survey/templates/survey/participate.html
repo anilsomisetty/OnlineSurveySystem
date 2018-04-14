@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<table class="table table-striped">
+   
+    <tr>
+        <td> Survey name : {{survey.surveyname}}</td>
+    </tr>
+</table>
+<form action="/participate/{{survey.id}}" method="POST">
+    {% csrf_token %}
+    {% for q in questions %}
+            <tr></tr>
+                <td>{{q.questionid}}) {{q.question}}<br></td>
+                <td>
+                    <input type="radio" name="{{q.questionid}}" value='op1' id='op1' {% if q1 == "op1" %}checked="checked"{% endif %}> {{q.option1}}<br></td>
+                   <td> <input type="radio" name="{{q.questionid}}" value='op2' id='op2' {% if q1 == "op2" %}checked="checked"{% endif %}> {{q.option2}}<br></td>
+                  <td> {% if q.option3 %}
+                    <input type="radio" name="{{q.questionid}}" value='op3' id='op3' {% if q1 == "op3" %}checked="checked"{% endif %}> {{q.option3}}<br>
+                    {% endif %}</td>
+                   <td> {% if q.option4 %}
+                    <input type="radio" name="{{q.questionid}}" value='op4' id='op4' {% if q1 == "op4" %}checked="checked"{% endif %}> {{q.option4}}<br>
+                    {% endif %}
+                    
+                </td>
+            </tr>
+        {% endfor %}
+        <td><input type="hidden" name ="method" value="DELETE">
+            <input type="submit" value="submit" class="btn btn-success"></td>
+</form>  
+{% endblock %}

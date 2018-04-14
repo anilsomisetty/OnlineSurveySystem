@@ -61,3 +61,13 @@ class approverForm(forms.Form):
 		cleaned_data=super(approverForm,self).clean()
 		Username=cleaned_data.get('Username')
 		password=cleaned_data.get('password')
+
+# class participateForm(forms.Forms):
+# 	questionnum=forms.IntegerField()
+# 	question=forms.BooleanField
+# 	option1=forms.BooleanField
+# 	option2=forms.BooleanField
+# 	option3=forms.BooleanField
+# 	option4=forms.BooleanField
+# 	choice=['option1','option2','option3','option4']
+# 	like=forms.ChoiceField(choices=choice,widget=forms.RadioSelect())
