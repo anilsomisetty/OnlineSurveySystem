@@ -19,6 +19,7 @@ from django.contrib import messages
 
 sid=0
 questionnum=0
+approveremail='test1@gmail.com'
 def home(request):
     return render(request,'survey/home.html')
 
@@ -37,6 +38,7 @@ def signup(request):
     return render(request, 'survey/signup.html', {'form': form})
 
 def approverlogin(request):
+    
     if request.method == 'POST':
         form=approverForm(request.POST)
         if form.is_valid():
@@ -45,6 +47,10 @@ def approverlogin(request):
             chec=approver.objects.filter(username=username,password=password).count()
             survey=Survey.objects.all()
             if chec > 0 :
+                u=approver.objects.get(username=username)
+                print u.username
+                global approveremail
+                approveremail=u.email
                 return redirect('/correct') 
             else:
                 return render(request,'survey/wrong.html')
@@ -65,6 +71,17 @@ def approve(request,sid):
     surveys=Survey.objects.get(id=sid)
     surveys.check1='True'
     surveys.save()
+    global approveremail
+    #print approveremail
+    em=approveremail
+    string='You have approved the survey with survey name \n\n : \n\n'+surveys.surveyname
+    email = EmailMessage('SurveyTool', string, to=[em])
+    email.send()
+    use=User.objects.get(username=surveys.userid)
+    em=use.email
+    string='Your survey has been approved with surveyname\n\n : \n\n'+surveys.surveyname
+    email = EmailMessage('SurveyTool', string, to=[em])
+    email.send()
     survey=Survey.objects.all()
     return render(request,'survey/approver.html',{'surveys': survey})
 
@@ -74,6 +91,16 @@ def rejectsurvey(request,sid):
     survey=Survey.objects.get(id=sid)
     survey.check3=False
     survey.save()
+    global approveremail
+    em=approveremail
+    string='You have rejected the survey with survey name \n\n : \n\n'+survey.surveyname
+    email = EmailMessage('SurveyTool', string, to=[em])
+    email.send()
+    use=User.objects.get(username=survey.userid)
+    em=use.email
+    string='Your survey has been rejected with surveyname\n\n : \n\n'+survey.surveyname
+    email = EmailMessage('SurveyTool', string, to=[em])
+    email.send()
     survey=Survey.objects.all()
     return render(request,'survey/approver.html',{'surveys': survey,'username':username})
 def surveys(request):
@@ -95,9 +122,10 @@ def surveys(request):
             # print sid
             iid.check=True
             iid.save()
-            # em=user.email
-            # email = EmailMessage('SurveyTool', 'You have sucesfully created a survey', to=[em])
-            # email.send()
+            em=user.email
+            string='You have sucesfully created a survey with \n \nSurvey name : \n \n' + surveyname
+            email = EmailMessage('Survey Tool', string, to=[em])
+            email.send()
             return redirect('/%d'%sid)
     else:
         form=SurveyForm
@@ -136,17 +164,25 @@ def addquestion(request):
 def deletequestion(request,sid,id):
     if request.method=='POST' and request.user.is_authenticated():
         que=questions.objects.get(yid=sid,questionid=id)
+        question=ques.question
         que.delete()
         sid=int(sid)
-        # em=user.email
-        # email = EmailMessage('SurveyTool', 'You have sucesfully deleted the question in your survey', to=[em])
-        # email.send()
+        em=user.email
+        string='You have sucesfully deleted the question in your survey with \n \nQuestion :\n \n'+question
+        email = EmailMessage('SurveyTool', string, to=[em])
+        email.send()
         return redirect('/%d'%sid)
 
 def deletesurvey(request,sid):
     if request.method=='POST' and request.user.is_authenticated():
         survey=Survey.objects.get(id=sid)
+        surveyname=survey.surveyname
         survey.delete()
+        user=request.user
+        em=user.email
+        string='You have sucesfully withdrawn your survey with \n \n Survey name:\n\n'+surveyname
+        email = EmailMessage('SurveyTool',string , to=[em])
+        email.send()
         return redirect('/hissurveys')
 
 def editquestion(request,sid,id):
@@ -166,9 +202,6 @@ def editquestion(request,sid,id):
             ques.option3=option3
             ques.option4=option4
             ques.save()
-            # em=user.email
-            # email = EmailMessage('SurveyTool', 'You have sucesfully edited the question in your survey', to=[em])
-            # email.send()
             sid=int(sid)
         return redirect('/%d'%sid)
     else:
@@ -198,9 +231,10 @@ def update_profile(request):
             u.first_name=first_name
             u.last_name=last_name
             u.email=email
-            u.save()            
-            # email1 = EmailMessage('SurveyTool', 'You have sucesfully updated your profile', to=[email])
-            # email1.send()
+            u.save()
+            string='You have sucesfully updated your profile with \n\nFirst name \n\n:'+first_name+'\nLast_name:\n\n'+last_name+'\nEmail:\n\n'+email             
+            email1 = EmailMessage('SurveyTool', string, to=[email])
+            email1.send()
             #messages.success(request, _('Your profile was successfully updated!'))
             return redirect('/profile')
         else:
@@ -220,9 +254,9 @@ def change_password(request):
             user = form.save()
             update_session_auth_hash(request, user)  # Important!
             messages.success(request, 'Your password was successfully updated!')
-            # em=user.email
-            # email = EmailMessage('SurveyTool', 'You have sucesfully changed your password', to=[em])
-            # email.send()
+            em=user.email
+            email = EmailMessage('SurveyTool', 'You have sucesfully updated your password', to=[em])
+            email.send()
             return redirect('/profile')
         else:
             messages.error(request,('Please correct the error below.'))
@@ -238,7 +272,14 @@ def forgotpassword(request):
             username=form.cleaned_data['username']
             email=form.cleaned_data['email']
             user_num=User.objects.filter(username=username,email=email).count()
+            user=User.objects.get(username=username,email=email)
             if user_num > 0 :
+                user.set_password('qwer123')
+                user.save()
+                em=user.email
+                string='You have sucesfully changed your password \n\n Your New Password is : \n\n'+'qwer123'
+                email = EmailMessage('SurveyTool',string , to=[em])
+                email.send()
                 return render(request,'survey/changepasswordsuccess.html')
             else :
                 return render(request,'survey/changepaswordunsuccess.html')
@@ -276,11 +317,16 @@ def getresults(request,sid):
 
 def cancelsurvey(request,sid):
     survey=Survey.objects.get(id=sid)
+    user=request.user
     if survey.check2 :
         survey.delete()
     else :
         survey.check2=True
         survey.delete()
+    em=user.email
+    string='You have sucesfully canceled your request for the survey with \n\n  Survey Name: \n\n'+survey.surveyname
+    email = EmailMessage('SurveyTool',string , to=[em])
+    email.send()
     return redirect('/hissurveys')
 
 def participate(request,sid):

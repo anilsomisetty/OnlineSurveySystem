@@ -10,6 +10,7 @@ class user(models.Model):
 class approver(models.Model):
 	username=models.CharField(max_length=50,primary_key=True)
 	password=models.CharField(max_length=50)
+	email=models.EmailField(default='test@gmail.com')
 	# firstname=models.CharField(max_length=50)
 	# lastname=models.CharField(max_length=50)
 	#email=models.CharField(max_length=50)
