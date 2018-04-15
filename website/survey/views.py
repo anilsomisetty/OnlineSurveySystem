@@ -295,7 +295,7 @@ def showsurveys(request):
     survey_num=Survey.objects.filter(~Q(userid=username)).count()
     #print survey_num
     survey=Survey.objects.all()
-    if survey_num > 0:
+    if survey_num > 0 and request.user.is_authenticated():
         return render(request,'survey/show_surveys.html',{'surveys': survey,'username':username})
     else:
         msg='No surveys found'
