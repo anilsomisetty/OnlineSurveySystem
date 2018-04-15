@@ -20,6 +20,8 @@ from django.contrib import messages
 sid=0
 questionnum=0
 approveremail='test1@gmail.com'
+usern='test'
+
 def home(request):
     return render(request,'survey/home.html')
 
@@ -62,7 +64,8 @@ def correct(request):
     if request.method == 'POST': 
         form=approverForm(request.POST)
         survey=Survey.objects.all()
-        return render(request,'survey/approver.html',{'surveys': survey})
+        global usern
+        return render(request,'survey/approver.html',{'surveys': survey,'username':usern})
     else:
         return render(request,'survey/correct.html')    
 def approve(request,sid):
