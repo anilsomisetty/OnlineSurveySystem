@@ -116,8 +116,8 @@ def surveys(request):
             global questionnum
             surveyname=form.cleaned_data['surveyname']
             surveymessage=form.cleaned_data['surveymessage']
-            #numberofquestions=form.cleaned_data['numberofquestions']
-            surveys=Survey.objects.create(surveyname=surveyname,surveymessage=surveymessage,userid=user.username,check=False)
+            datetillopen=form.cleaned_data['datetillopen']
+            surveys=Survey.objects.create(surveyname=surveyname,surveymessage=surveymessage,datetillopen=datetillopen,userid=user.username,check=False)
             surveys.save()
             iid=Survey.objects.get(userid=user.username,check=False)
             sid=iid.id
@@ -360,4 +360,6 @@ def participate(request,sid):
         ques=questions.objects.filter(yid=sid)
         return render(request,'survey/participate.html',{'questions':ques,'survey':survey})
 
+def demo(request):
+    return render(request,'survey/demo2.html')
 

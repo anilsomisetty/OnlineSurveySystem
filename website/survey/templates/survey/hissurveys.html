@@ -7,6 +7,7 @@
     <table class="table table-striped">
         <tr>
             <th>Survey name</th>
+            <th>Date till Survey is open</th>
             <th>Edit Survey Questions</th>
             <th>Results</th>
             <th>Approve Status</th>
@@ -17,6 +18,7 @@
             {% if survey.userid == username %}
             <tr>
                 <td>{{survey.surveyname}}</td>
+                <td>{{survey.datetillopen}}</td>
                 {% if survey.check1 is True and survey.check is True %}
                 <td>Can't Change Already Launched</td>
                 {% elif survey.check3 is False %}

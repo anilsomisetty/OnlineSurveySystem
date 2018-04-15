@@ -1,0 +1,115 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:700,300);
+
+body {
+    /* Typography Declarations */
+    color: #222222;
+    font-size: 1em;
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+p {
+  color: #336699;
+}
+
+h1 {
+}
+
+h2 {
+  color:#336699;
+  font-size: .85em;
+}
+
+header {
+  background-color: #00539f;
+  background-image: url(https://developer.mozilla.org/media/img/header-background.png), url(https://developer.mozilla.org/media/img/blueprint.png), url(https://developer.mozilla.org/media/img/mdn-header-gradient.png);
+  background-repeat: repeat, repeat, repeat-x;
+  transform: rotate (5deg);
+  -webkit-transform: rotate(5deg);
+  -moz-transform: rotate(5deg);
+  -ms-transform: rotate(5deg);
+  opacity: 0.8;
+  margin-bottom: -2em;
+  -webkit-transition: opacity .75s;
+  transition: opacity .75s;
+  width: 110%;
+  margin-left: -5%;
+  margin-top:-5em;
+}
+
+header:hover {
+    opacity: .5;
+}
+
+.masthead {
+  margin-top: .25em;
+  padding: 2em 0 .5em 0;
+}
+
+.masthead-intro {
+  padding-bottom: .1em;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  color: #fafafa;
+}
+
+.masthead-heading {
+  margin-top: -.2em;
+  color: #ffffff;
+}
+
+.masthead-heading,
+.masthead-intro {
+  text-align: right;
+  max-width: 38em;
+  margin-left: auto;
+  margin-right: 0;
+  padding-right: 25%;
+}
+
+.introduction-section, .location-section, .questions-section, .content-footer {
+  max-width: 38em;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2em;
+}
+
+.content-footer {
+  color: #ffffff;
+background-color: #00539f;
+  background-image: url(https://developer.mozilla.org/media/img/header-background.png), url(https://developer.mozilla.org/media/img/blueprint.png), url(https://developer.mozilla.org/media/img/mdn-header-gradient.png);
+  background-repeat: repeat, repeat, repeat-x;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  padding: 2em 0;
+}
+
+.social > li {
+  display: inline-block;
+  max-width: 38em;
+  margin-left: 5%;
+  margin-right: 5%;
+  color: #ffffff;
+  text-align: center;
+}
+
+.shadow {
+  -moz-box-shadow:    4px 4px 4px 4px #ccc;
+  -webkit-box-shadow: 4px 4px 4px 4px #ccc;
+  box-shadow:         4px 4px 4px 4px #ccc;
+}
+
+.social {
+  font-size: 2em;
+}
+
+.social > ul > a {
+  color: #ffffff;
+  padding-bottom: 10em;
+}
+
+.content-footer > p {
+ color: white;
+  text-align: center;
+}
+
+.content-footer a {
+ color: white;
+}
