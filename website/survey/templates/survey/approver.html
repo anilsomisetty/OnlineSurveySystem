@@ -7,13 +7,16 @@
         <tr>
             <th>Survey name</th>
             <th>Created by</th>
+            <th>Date until open</th>
             <th>approve</th>
             <th>Reject</th>
+            <th>Deadline over?</th>
         </tr>
         {% for survey in surveys %}
             <tr>
                 <td>{{survey.surveyname}}</td>
                 <td>{{survey.userid}}</td>
+                <td>{{survey.datetillopen}}</td>
                 {% if survey.check1 == False and survey.check3 == True %}
                     <td><a class="btn btn-success" href="/approve/{{survey.id}}">Approve</a></td>
                 {% elif survey.check3 == False %}
@@ -34,6 +37,13 @@
                 {% else %}
                 <td>Already Approved</td>
                 {% endif %}
+                <td>
+                    <form action="/deletesurvey/{{survey.id}}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name ="method" value="DELETE">
+                        <input type="submit" value="Delete" class="btn btn-danger">
+                    </form>
+                </td>
             </tr>
         {% endfor %}
     </table>
