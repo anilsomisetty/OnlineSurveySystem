@@ -363,3 +363,19 @@ def participate(request,sid):
 def demo(request):
     return render(request,'survey/demo2.html')
 
+def prin(request):
+    question=questions.objects.all()
+    fp = open("/home/anil/Desktop/git/surveytool/website/Output.txt", "w")
+    fp.write("Surveyname    Question    Option1    Voted Persons    Option2    Voted Persons    Option3    Voted Persons    Option4    Voted Persons\n")
+    
+    for q in question :
+        survey_num=Survey.objects.filter(id=q.yid).count()
+        if survey_num >0 :
+            survey=Survey.objects.get(id=q.yid)
+            string=survey.surveyname+"   "+q.question+"   "+q.option1+"   "+str(q.count1)+"   "+q.option2+"   "+str(q.count2)+"   "+q.option3+"   "+str(q.count3)+"   "+q.option4+"   "+str(q.count4)
+            fp.write(string+"\n")
+    
+    fp.close()
+    html="Done Writing"
+    return HttpResponse(html)
+

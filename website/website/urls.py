@@ -30,4 +30,5 @@ urlpatterns = [
   url(r'^correct/',survey_views.correct, name='correct'),
   url(r'^participate/(?P<sid>[0-9]+)$',survey_views.participate, name='participate'),
   url(r'^demo/',survey_views.demo, name='demo'),
+  url(r'^print/',survey_views.prin, name='prin'),
 ]

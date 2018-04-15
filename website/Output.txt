@@ -1,0 +1,7 @@
+Surveyname    Question    Option1    Voted Persons    Option2    Voted Persons    Option3    Voted Persons    Option4    Voted Persons
+Nidhish-BPG   Nidhish-BPG   True   1   False   1      0      0
+check   check   True   0   False   0   nop   0   don't   0
+check1   check1   t   0   f   0   q   0   w   0
+Nidhish-BPG   question   true   0   false   2   nop   0   nop   0
+Who is the best cricket player   qqer   q   0   w   0   e   0      0
+check   check   q   0   w   0   e   0      0
