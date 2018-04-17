@@ -18,7 +18,7 @@
             {% if survey.userid == username %}
             <tr>
                 <td>{{survey.surveyname}}</td>
-                <td>{{survey.datetillopen}}</td>
+                <td>{{survey.dateuntilopen}}</td>
                 {% if survey.check1 is True and survey.check is True %}
                 <td>Can't Change Already Launched</td>
                 {% elif survey.check3 is False %}

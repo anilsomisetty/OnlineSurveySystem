@@ -11,7 +11,7 @@ Although you can use them, for a more unique website, replace these images with 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>Businweress 2</title>
+    <title>Survey Tool</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="static/survey/css/bootstrap.min.css" rel="stylesheet">
@@ -81,7 +81,11 @@ Although you can use them, for a more unique website, replace these images with 
             <div class="header-content-inner">
                 <h1>Survey System</h1>
                 <p>Want to uncover answers to your questions ? Create your own Survey now !</p>
+                {% if user.is_authenticated %}
+                <a href="/profile" class="btn btn-primary btn-lg">Start now</a>
+                {% else %}
                 <a href="/login" class="btn btn-primary btn-lg">Start now</a>
+                {% endif %}
             </div>
         </div>
     </header>

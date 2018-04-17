@@ -16,7 +16,7 @@
             <tr>
                 <td>{{survey.surveyname}}</td>
                 <td>{{survey.userid}}</td>
-                <td>{{survey.datetillopen}}</td>
+                <td>{{survey.dateuntilopen}}</td>
                 {% if survey.check1 == False and survey.check3 == True %}
                     <td><a class="btn btn-success" href="/approve/{{survey.id}}">Approve</a></td>
                 {% elif survey.check3 == False %}

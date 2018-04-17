@@ -116,8 +116,8 @@ def surveys(request):
             global questionnum
             surveyname=form.cleaned_data['surveyname']
             surveymessage=form.cleaned_data['surveymessage']
-            datetillopen=form.cleaned_data['datetillopen']
-            surveys=Survey.objects.create(surveyname=surveyname,surveymessage=surveymessage,datetillopen=datetillopen,userid=user.username,check=False)
+            dateuntilopen=form.cleaned_data['dateuntilopen']
+            surveys=Survey.objects.create(surveyname=surveyname,surveymessage=surveymessage,dateuntilopen=dateuntilopen,userid=user.username,check=False)
             surveys.save()
             iid=Survey.objects.get(userid=user.username,check=False)
             sid=iid.id
@@ -217,6 +217,7 @@ def editquestion(request,sid,id):
         return render(request,'survey/editquestion.html',{'form' : form})
 
 def profile(request):
+    #print request.user.id
     return render(request,'survey/profile.html')
 
 @login_required
@@ -353,7 +354,7 @@ def participate(request,sid):
                 q.save()
 
        #print 1
-        return HttpResponse('123')
+        return render(request,'survey/surveysubmitsuccess.html')
     else :      
         survey=Survey.objects.get(id=sid)
         #surveyname=survey.surveyname

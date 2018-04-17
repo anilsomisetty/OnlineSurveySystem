@@ -3,11 +3,13 @@ from survey.models import Survey
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
+from django.contrib.admin.widgets import AdminDateWidget
 
 class SurveyForm(forms.Form):
 	surveyname=forms.CharField(max_length=50)
 	surveymessage=forms.CharField(max_length=2000,widget=forms.Textarea())
-	datetillopen=forms.CharField(max_length=10)
+	#datetillopen=forms.CharField(max_length=10)
+	dateuntilopen=forms.DateField(widget = forms.SelectDateWidget())
 	#numberofquestions=forms.IntegerField()
 	#super=forms.CharField(max_length=100,widget=forms.HiddenInput())
 
@@ -15,8 +17,8 @@ class SurveyForm(forms.Form):
 		cleaned_data=super(SurveyForm,self).clean()
 		surveyname=cleaned_data.get('surveyname')
 		surveymessage=cleaned_data.get('surveymessage')
-		datetillopen=cleaned_data.get('datetillopen')
-		if not surveyname and not surveymessage and not daystillopen:
+		dateuntilopen=cleaned_data.get('dateuntilopen')
+		if not surveyname and not surveymessage and not dateuntilopen:
 			raise forms.ValidationError('You have to write something')
 class questionForm(forms.Form):
 	#questionid=forms.IntegerField()

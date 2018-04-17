@@ -13,7 +13,7 @@
             {% if survey.userid != username and survey.check1 is True and survey.check3 is True %}
             <tr>
                 <td>{{survey.surveyname}}</td>
-                <td>{{survey.datetillopen}}</td>
+                <td>{{survey.dateuntilopen}}</td>
                 <td><a class="btn btn-success" href="/participate/{{survey.id}}">Participate</a></td>
             </tr>
             {% endif %}
