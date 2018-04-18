@@ -337,25 +337,25 @@ def participate(request,sid):
     if request.method == 'POST':
         ques=questions.objects.filter(yid=sid)
         for q in ques :
-            ii=str(q.questionid)
-            option=request.POST[ii]
-            # print option
-            if option == 'op1':
-                q.count1=q.count1+1
-                q.save()
-            elif option == 'op2':
-                q.count2=q.count2+1
-                q.save()
-            elif option == 'op3':
-                q.count3=q.count3+1
-                q.save()
-            elif option == 'op4':
-                q.count4=q.count4+1
-                q.save()
+         ii=str(q.questionid)
+        option=request.POST[ii]
+        # print option
+        if option == 'op1':
+            q.count1=q.count1+1
+            q.save()
+        elif option == 'op2':
+            q.count2=q.count2+1
+            q.save()
+        elif option == 'op3':
+            q.count3=q.count3+1
+            q.save()
+        elif option == 'op4':
+            q.count4=q.count4+1
+            q.save()
 
-       #print 1
+        #print 1
         return render(request,'survey/surveysubmitsuccess.html')
-    else :      
+    else :
         survey=Survey.objects.get(id=sid)
         #surveyname=survey.surveyname
         ques=questions.objects.filter(yid=sid)
