@@ -10,7 +10,6 @@
             <th>Date until open</th>
             <th>approve</th>
             <th>Reject</th>
-            <th>Deadline over?</th>
         </tr>
         {% for survey in surveys %}
             <tr>
@@ -37,13 +36,6 @@
                 {% else %}
                 <td>Already Approved</td>
                 {% endif %}
-                <td>
-                    <form action="/deletesurvey/{{survey.id}}" method="post">
-                        {% csrf_token %}
-                        <input type="hidden" name ="method" value="DELETE">
-                        <input type="submit" value="Delete" class="btn btn-danger">
-                    </form>
-                </td>
             </tr>
         {% endfor %}
     </table>

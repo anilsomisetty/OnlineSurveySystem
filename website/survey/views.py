@@ -69,6 +69,7 @@ def correct(request):
     else:
         return render(request,'survey/correct.html')    
 def approve(request,sid):
+    global usern
     user=request.user
     username=user.username
     surveys=Survey.objects.get(id=sid)
@@ -77,16 +78,16 @@ def approve(request,sid):
     global approveremail
     #print approveremail
     em=approveremail
-    string='You have approved the survey with survey name \n\n : \n\n'+surveys.surveyname
+    string='You have approved the survey with \n survey name  : '+surveys.surveyname
     email = EmailMessage('SurveyTool', string, to=[em])
     email.send()
     use=User.objects.get(username=surveys.userid)
     em=use.email
-    string='Your survey has been approved with surveyname\n\n : \n\n'+surveys.surveyname
+    string='Your survey has been approved with \n surveyname: : '+surveys.surveyname
     email = EmailMessage('SurveyTool', string, to=[em])
     email.send()
     survey=Survey.objects.all()
-    return render(request,'survey/approver.html',{'surveys': survey})
+    return render(request,'survey/approver.html',{'surveys': survey,'username':usern})
 
 def rejectsurvey(request,sid):
     user=request.user
@@ -96,16 +97,16 @@ def rejectsurvey(request,sid):
     survey.save()
     global approveremail
     em=approveremail
-    string='You have rejected the survey with survey name \n\n : \n\n'+survey.surveyname
+    string='You have rejected the survey with \nsurvey name  : '+survey.surveyname
     email = EmailMessage('SurveyTool', string, to=[em])
     email.send()
     use=User.objects.get(username=survey.userid)
     em=use.email
-    string='Your survey has been rejected with surveyname\n\n : \n\n'+survey.surveyname
+    string='Your survey has been rejected with \nsurveyname :'+survey.surveyname
     email = EmailMessage('SurveyTool', string, to=[em])
     email.send()
     survey=Survey.objects.all()
-    return render(request,'survey/approver.html',{'surveys': survey,'username':username})
+    return render(request,'survey/approver.html',{'surveys': survey})
 def surveys(request):
     
     if request.method =='POST':
@@ -236,7 +237,7 @@ def update_profile(request):
             u.last_name=last_name
             u.email=email
             u.save()
-            string='You have sucesfully updated your profile with \n\nFirst name \n\n:'+first_name+'\nLast_name:\n\n'+last_name+'\nEmail:\n\n'+email             
+            string='You have sucesfully updated your profile with \n\nFirst name: '+first_name+'\nLast_name: '+last_name+'\nEmail: '+email             
             email1 = EmailMessage('SurveyTool', string, to=[email])
             email1.send()
             #messages.success(request, _('Your profile was successfully updated!'))
@@ -337,21 +338,22 @@ def participate(request,sid):
     if request.method == 'POST':
         ques=questions.objects.filter(yid=sid)
         for q in ques :
-         ii=str(q.questionid)
-        option=request.POST[ii]
-        # print option
-        if option == 'op1':
-            q.count1=q.count1+1
-            q.save()
-        elif option == 'op2':
-            q.count2=q.count2+1
-            q.save()
-        elif option == 'op3':
-            q.count3=q.count3+1
-            q.save()
-        elif option == 'op4':
-            q.count4=q.count4+1
-            q.save()
+
+            ii=str(q.questionid)
+            option=request.POST[ii]
+            # print option
+            if option == 'op1':
+                q.count1=q.count1+1
+                q.save()
+            elif option == 'op2':
+                q.count2=q.count2+1
+                q.save()
+            elif option == 'op3':
+                q.count3=q.count3+1
+                q.save()
+            elif option == 'op4':
+                q.count4=q.count4+1
+                q.save()
 
         #print 1
         return render(request,'survey/surveysubmitsuccess.html')
