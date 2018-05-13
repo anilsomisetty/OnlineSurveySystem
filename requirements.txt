@@ -1,1 +1,2 @@
+install pip and then install
 Django==1.11.11
